@@ -1,0 +1,47 @@
+﻿<Window x:Class="BackupTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackupTool"
+        mc:Ignorable="d"
+        Title="Backup Configuration Tool" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="5" VerticalAlignment="Center">Remote backup location:</TextBlock>
+        <TextBox Margin="0 5 5 5" x:Name="txtFTPServer" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+
+        <TextBlock Grid.Row="1" Margin="5 0 5 5">Remote server username:</TextBlock>
+        <TextBox Margin="0 0 5 5" x:Name="txtUserName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+
+        <TextBlock Grid.Row="2" Margin="5 0 5 5">Remote server password:</TextBlock>
+        <PasswordBox Margin="0 0 5 5" x:Name="txtPassword" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"></PasswordBox>
+
+        <TextBlock Margin="5 0 5 5" Grid.Row="3">Local Backup Location</TextBlock>
+        <CheckBox Margin="0 0 5 5" x:Name="chkLocalPath" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" />
+        <TextBox x:Name="Path" Grid.Row="3" Grid.Column="2" Margin="0 0 5 5" />
+        <Button x:Name="btnBrowse" Grid.Row="3" Grid.Column="3" Content="Browse" Margin="0 0 5 5"></Button>
+
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Margin="5 0 5 5">Folders Selected For Backup:</TextBlock>
+        <ScrollViewer  Grid.Row="5" Grid.ColumnSpan="4" Margin="5 0 5 5">
+            <DataGrid ItemsSource="{Binding Folders}" x:Name="dataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Folder}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+    </Grid>
+</Window>
