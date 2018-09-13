@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackupTool"
         mc:Ignorable="d"
+        x:Name="window"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Backup Configuration Tool" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
@@ -14,6 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -35,13 +38,29 @@
         <TextBox x:Name="Path" Grid.Row="3" Grid.Column="2" Margin="0 0 5 5" />
         <Button x:Name="btnBrowse" Grid.Row="3" Grid.Column="3" Content="Browse" Margin="0 0 5 5"></Button>
 
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="4" Margin="5 0 5 5">Folders Selected For Backup:</TextBlock>
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Margin="5 0 5 5">Folders Selected For Backup:</TextBlock>
+        <Button Grid.Row="4" Grid.Column="3" Margin="0 0 5 5" Content="Add Folder" x:Name="btnAddFolder" Click="BtnAddFolder_OnClick" />
         <ScrollViewer  Grid.Row="5" Grid.ColumnSpan="4" Margin="5 0 5 5">
-            <DataGrid ItemsSource="{Binding Folders}" x:Name="dataGrid">
+            <DataGrid AutoGenerateColumns="False" x:Name="dataGrid">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Folder}"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Folder}" Width="*"></DataGridTextColumn>
+                    <DataGridTemplateColumn Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove" Margin="3"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.DeleteCommand}"
+                                        CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
+
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 5">
+            <Button x:Name="saveButton" Content="Save and Quit" Width="85" Margin="0 0 5 0" Click="SaveButton_OnClick" />
+            <Button x:Name="cancelButton" Click="CancelButton_OnClick" Content="Cancel" Width="60" />
+        </StackPanel>
     </Grid>
 </Window>
